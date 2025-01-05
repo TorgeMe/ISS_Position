@@ -8,8 +8,6 @@
 
 import tkinter as tk
 import requests
-import matplotlib.pyplot as plt
-from mpl_toolkits.basemap import Basemap
 import time
 
 lon = 0
@@ -29,20 +27,18 @@ def iss_location():
     else:
         return None
 
-
 def where():
     iss_position = iss_location()
     if iss_position:
         lon = float(iss_position["longitude"])
         lat = float(iss_position["latitude"])
-        #timestamp = time.localtime()
         timestamp = time.strftime("%d.%m.%Y %H:%M:%S")
         return lon, lat, timestamp
     else:
         print("Fehler beim Abrufen der ISS-Position!")
-    
-    
+
 def refresh_gui():
+    global label_result1, label_result2, label_result3
     lon, lat, timestamp = where()
     
     if lon < 0:
@@ -57,13 +53,13 @@ def refresh_gui():
         lat_direction = "Nord"
     lat_absolut = abs(lat)
     
-    print(lon, lon_absolut, lon_direction, lat, 
-          lat_absolut, lat_direction, 
-          timestamp)
-    gui(lon, lon_absolut, lon_direction, lat, lat_absolut, lat_direction, timestamp)
-    
-    
-def gui(lon, lon_absolut, lon_direction, lat, lat_absolut, lat_direction, timestamp):
+    # Update existing labels
+    label_result1.config(text="Längengrad = " + str(lon_absolut) + " " + str(lon_direction))
+    label_result2.config(text="Breitengrad = " + str(lat_absolut) + " " + str(lat_direction))
+    label_result3.config(text="Zeitpunkt = " + str(timestamp))
+
+def gui():
+    global label_result1, label_result2, label_result3
     main = tk.Tk()
     main.title("ISS - Internationale Raumstation")
     
@@ -89,8 +85,6 @@ def gui(lon, lon_absolut, lon_direction, lat, lat_absolut, lat_direction, timest
                                text=("Positionsermittlung"),
                                command=refresh_gui)
     
-    #label_result1.config(text="Längengrad = " + str(lon_absolut) + " " + str(lon_direction))
-    
     label_headline.pack(pady=50)
     label_result1.pack()
     label_result2.pack()
@@ -98,8 +92,6 @@ def gui(lon, lon_absolut, lon_direction, lat, lat_absolut, lat_direction, timest
     button_Ermittle.pack(pady=50)
     
     main.mainloop()
-    
-    
-    
+
 if __name__ == "__main__":
-    gui(lon, lon_absolut, lon_direction, lat, lat_absolut, lat_direction, timestamp)
+    gui()
