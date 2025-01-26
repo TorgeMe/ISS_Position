@@ -6,6 +6,7 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.basemap import Basemap
+import os
 
 lon = 0
 lon_absolut = 0
@@ -19,11 +20,7 @@ status = "nicht aktiv"
 # Versions-Meldung
 def showVersion():
     messagebox.showinfo("Version",
-<<<<<<< Updated upstream
-                        "4.1.0 vom 20.01.2025")
-=======
                         "4.2.2 vom 26.01.2025")
->>>>>>> Stashed changes
 
 
 # Copyright-Meldung
@@ -42,7 +39,7 @@ def quitProgram():
     decision = messagebox.askyesno("Beenden",
                             "Möchten Sie das Programm beenden?")
     if decision:
-        exit()
+        os._exit(0)
 
 
 # Fehler-Meldung V00
@@ -50,14 +47,12 @@ def showErrorV00():
     messagebox.showerror("Fehler V00",
                         "Es ist ein Verbindungsfehler zur API aufgetreten!")
 
-<<<<<<< Updated upstream
-=======
+
 # Einstellungsmenü
 def Einstellungen():
     messagebox.showinfo("Einstellungen",
                         "API-URL: http://api.open-notify.org/iss-now.json")                        
 
->>>>>>> Stashed changes
 
 # Daten von API ISS-now laden
 def loadData():
@@ -102,13 +97,12 @@ def addDataResponse():
     else:
         lat_direction = "Nord"
     lat_absolut = abs(lat)
-<<<<<<< Updated upstream
-    return lon, lon_direction, lon_absolut, lat, lat_direction, lat_absolut, timestamp, status
+    return lon_direction, lon_absolut, lat_direction, lat_absolut, timestamp, status
 
 
 # Update GUI
 def refreshGui():
-    lon, lon_direction, lon_absolut, lat, lat_direction, lat_absolut, timestamp, status = addDataResponse()
+    lon_direction, lon_absolut, lat_direction, lat_absolut, timestamp, status = addDataResponse()
     
     label_status.config(text="Status: " + str(status))
     label_result1.config(text="Längengrad = " + str(lon_absolut) + " " + str(lon_direction))
@@ -120,7 +114,6 @@ def refreshGui():
 def gui():
     # globale Variablen definieren
     global label_result1, label_result2, label_result3, label_status
-=======
     return lon_direction, lon_absolut, lat_direction, lat_absolut, timestamp, status
 
 
@@ -168,7 +161,6 @@ def gui():
     global label_result2_0, label_result2_1 
     global label_result3_0, label_result3_1
     global label_status_0, label_status_1
->>>>>>> Stashed changes
 
     # Fenster
     main = tk.Tk()
@@ -184,11 +176,8 @@ def gui():
     info_menu.add_separator() # Fügt eine Trennlinie hinzu
     info_menu.add_command(label="Copyright", command=showCopyright)
     info_menu.add_separator() # Fügt eine Trennlinie hinzu
-<<<<<<< Updated upstream
-=======
     info_menu.add_command(label="Einstellungen", command=Einstellungen)
     info_menu.add_separator() # Fügt eine Trennlinie hinzu
->>>>>>> Stashed changes
     info_menu.add_command(label="Hilfe", command=showHelp)
 
     exit_menu.add_command(label="Beenden", command=quitProgram)
@@ -206,17 +195,8 @@ def gui():
     label_headline = tk.Label(main, 
                             text="Aktuelle Position der ISS",
                             font=("Arial,20"))
-<<<<<<< Updated upstream
-    label_status = tk.Label(main,
-                            text="Status: " + str(status),
-                            font=("Arial,12"))
-
-    label_result1 = tk.Label(main,
-                            text="Längengrad = " + str(lon_absolut) + " " + str(lon_direction),
-=======
     label_status_0 = tk.Label(main,
                             text="Status: ",
->>>>>>> Stashed changes
                             font=("Arial,12"))
     
     label_status_1 = tk.Label(main,
@@ -230,21 +210,7 @@ def gui():
     label_result1_1 = tk.Label(main,
                             text=str(lon_absolut) + " " + str(lon_direction),
                             font=("Arial,12"))
-    
-<<<<<<< Updated upstream
-    button_ermittle = tk.Button(main,
-                               text=("POSITIONSERMITTLUNG"),
-                               command=refreshGui)
 
-    
-    # Fenster erstellen
-    label_headline.pack(pady=25)
-    label_status.pack()
-    label_result1.pack()
-    label_result2.pack()
-    label_result3.pack()
-    button_ermittle.pack(pady=25)
-=======
     label_result2_0 = tk.Label(main,
                             text="Breitengrad = ",
                             font=("Arial,12"))
@@ -284,7 +250,6 @@ def gui():
     label_result3_1.grid(row=5, column=1, sticky=tk.W)
     button_ermittle.grid(row=7, column=0, pady=40)
     button_map.grid(row=7, column=0, sticky=tk.E)
->>>>>>> Stashed changes
     
     main.mainloop()
 
